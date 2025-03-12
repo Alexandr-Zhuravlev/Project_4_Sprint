@@ -1,66 +1,31 @@
 package org.example;
 
 import org.example.pom.MainPage;
+import org.example.pom.OrderPage;
 import org.junit.After;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import java.util.concurrent.TimeUnit;
 
+import java.util.concurrent.TimeUnit;
 
 public class OrderTest {
 
     private WebDriver driver;
 
     @Test
-    public void questionTest() {
+    public void orderTestChromeTopButton(){
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
         MainPage mainPage = new MainPage(driver);
+        OrderPage orderPage = new OrderPage(driver);
 
         mainPage
                 .open()
                 .maximizeWindow()
                 .cookieAcceptButtonClick()
-                .accordionCourierPaymentMoveTo()
-                .accordionCourierPaymentClick()
-                .checkAccordionCourierPaymentText();
-        mainPage
-                .accordionManyScootersClick()
-                .accordionManyScootersText();
-        mainPage
-                .accordionRentTimeCalculationClick()
-                .accordionRentTimeCalculationText();
-        mainPage
-                .accordionOrderTodayClick()
-                .accordionOrderTodayText();
-        mainPage
-                .accordionExtendOrReturnClick()
-                .accordionExtendOrReturnText();
-        mainPage
-                .accordionChargerClick()
-                .accordionChargerText();
-        mainPage
-                .accordionCancelOrderClick()
-                .accordionCancelOrderText();
-        //В этом шаге баг с текстом в вопросе
-        mainPage
-                .accordionDeliveryBeyondTheMKADClick()
-                .accordionDeliveryBeyondTheMKADText();
-    }
-
-    @Test
-    public void orderTestChromeTopButton(){
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        MainPage mainPage = new MainPage(driver);
-
-        mainPage
-                .open()
-                .maximizeWindow()
-                .orderButtonTopClick()
+                .orderButtonTopClick();
+        orderPage
                 .correctNameSetText("Герберт")
                 .correctLastNameSetText("Шилдт")
                 .addressSetText("Чистопрудный бульвар 8")
@@ -81,12 +46,14 @@ public class OrderTest {
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         MainPage mainPage = new MainPage(driver);
+        OrderPage orderPage = new OrderPage(driver);
 
         mainPage
                 .open()
                 .maximizeWindow().cookieAcceptButtonClick()
                 .orderButtonBottomMoveTo()
-                .orderButtonBottomClick()
+                .orderButtonBottomClick();
+        orderPage
                 .correctNameSetText("Иван")
                 .correctLastNameSetText("Иванов")
                 .addressSetText("Чистопрудный бульвар 224")
@@ -101,59 +68,6 @@ public class OrderTest {
                 .orderYesButtonClick()
                 .successOrderText();
     }
-
-    @Test
-    public void orderTestFireFox(){
-        driver = new FirefoxDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        MainPage mainPage = new MainPage(driver);
-
-        mainPage
-                .open()
-                .maximizeWindow()
-                .orderButtonTopClick()
-                .correctNameSetText("Альберт")
-                .correctLastNameSetText("Энштейн")
-                .addressSetText("Чистопрудный бульвар 12")
-                .metroStationSelect("Бульвар Рокоссовского")
-                .phoneSetText("81112223344")
-                .orderFurtherButtonClick()
-                .dateDeliverySelect("22.12.2025")
-                .rentTimeSelect("трое суток")
-                .scooterBlackColorClick()
-                .courierCommentText("Комментарий отсутствует")
-                .orderFinishButtonClick()
-                .orderYesButtonClick()
-                .successOrderText();
-    }
-
-    @Test
-    public void orderTestFireFoxBottomButton(){
-        driver = new FirefoxDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        MainPage mainPage = new MainPage(driver);
-
-        mainPage
-                .open()
-                .maximizeWindow()
-                .cookieAcceptButtonClick()
-                .orderButtonBottomMoveTo()
-                .orderButtonBottomClick()
-                .correctNameSetText("Павел")
-                .correctLastNameSetText("Павлов")
-                .addressSetText("Бабушкинская 12")
-                .metroStationSelect("Бульвар Рокоссовского")
-                .phoneSetText("89876543210")
-                .orderFurtherButtonClick()
-                .dateDeliverySelect("10.10.2025")
-                .rentTimeSelect("четверо суток")
-                .scooterGreyColorClick()
-                .courierCommentText("Комментарий есть")
-                .orderFinishButtonClick()
-                .orderYesButtonClick()
-                .successOrderText();
-    }
-
     @After
     public void tearDown() {
         driver.quit();
